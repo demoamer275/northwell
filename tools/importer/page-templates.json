@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "projectType": "xwalk"
+  },
+  "templates": [
+    {
+      "name": "Service Line",
+      "description": "Northwell service-line landing page (Orthopaedic Institute). Composed of hero, icon/standard cards, carousels, a two-column specialty list with a video card, and closing CTA hero. Source captured locally because the live origin is Cloudflare-protected.",
+      "urls": [
+        "http://localhost:8899/orthopaedic-institute.html"
+      ],
+      "sections": [
+        {
+          "id": "section-cta-hero",
+          "name": "CTA hero",
+          "selector": "section.cta-hero:first-of-type",
+          "style": null,
+          "blocks": ["hero"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-approach",
+          "name": "Our approach to care",
+          "selector": "section.approach",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": ["section.approach > h3", "section.approach > p"]
+        },
+        {
+          "id": "section-ranked",
+          "name": "Ranked among the best",
+          "selector": "section.ranked",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["section.ranked > h2", "section.ranked > p"]
+        },
+        {
+          "id": "section-awards",
+          "name": "Awards & accolades",
+          "selector": "section.awards",
+          "style": null,
+          "blocks": ["carousel"],
+          "defaultContent": ["section.awards > h3"]
+        },
+        {
+          "id": "section-islanders-hero",
+          "name": "Islanders standard hero",
+          "selector": "section.standard-hero",
+          "style": "light",
+          "blocks": ["hero"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-expert-care",
+          "name": "Expert care for excellent results",
+          "selector": "section.expert-care",
+          "style": null,
+          "blocks": ["columns", "video"],
+          "defaultContent": ["section.expert-care .main-column > h2", "section.expert-care .main-column > p"]
+        },
+        {
+          "id": "section-related-services",
+          "name": "Related services",
+          "selector": "section.related-services",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": ["section.related-services > h3", "section.related-services > p"]
+        },
+        {
+          "id": "section-limb-care",
+          "name": "Amputation support",
+          "selector": "section.limb-care",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-testimonials",
+          "name": "Patient testimonials",
+          "selector": "section.testimonials",
+          "style": null,
+          "blocks": ["carousel"],
+          "defaultContent": ["section.testimonials > h3"]
+        },
+        {
+          "id": "section-resources",
+          "name": "Helpful resources",
+          "selector": "section.resources",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": ["section.resources > h3"]
+        },
+        {
+          "id": "section-team-hero",
+          "name": "Our team is here for you",
+          "selector": "section.cta-hero:last-of-type",
+          "style": "light",
+          "blocks": ["hero"],
+          "defaultContent": []
+        }
+      ],
+      "blocks": [
+        {
+          "name": "hero",
+          "section": "hero",
+          "instances": [
+            "section.cta-hero:first-of-type",
+            "section.standard-hero",
+            "section.cta-hero:last-of-type"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            "section.approach",
+            "section.related-services",
+            "section.limb-care .card-single",
+            "section.resources"
+          ]
+        },
+        {
+          "name": "carousel",
+          "instances": [
+            "section.awards",
+            "section.testimonials"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            "section.expert-care"
+          ]
+        },
+        {
+          "name": "video",
+          "instances": [
+            "section.expert-care .video-card"
+          ]
+        }
+      ]
+    }
+  ]
+}
