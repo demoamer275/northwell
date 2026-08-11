@@ -41,7 +41,7 @@
   /* nav heights */
   --nav-height: 64px;
   --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
+  --header-height: 220px;
 }
 
 /* fallback fonts — approximate TheSans metrics with a system humanist sans */
@@ -50,7 +50,12 @@
   size-adjust: 97%;
   src: local('Arial');
 }
-
+@font-face {
+  font-family: 'PolarisCondensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://www.northwell.edu/themes/custom/northwell_health_digital_design_system/nwh-dds/fonts/PolarisCondensed/PolarisCondensed-Bold.woff") format("woff");
+}
 @media (width >= 768px) {
   :root {
     /* body sizes */

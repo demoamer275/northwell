@@ -19,11 +19,18 @@
   color: var(--color-white);
   overflow: hidden;
 }
+.hero.home {
+  display: block;
+    background: rgb(0, 60, 165);
+}
 
 .hero picture {
   position: absolute;
   z-index: 0;
   inset: 0;
+}
+.hero.home picture {
+  position: relative;
 }
 
 .hero picture img {
@@ -31,7 +38,9 @@
   width: 100%;
   height: 100%;
 }
-
+.hero.home picture img {
+  height: auto;
+}
 /* darken image so overlaid text stays legible (only when an image exists) */
 .hero picture::after {
   content: '';
@@ -47,7 +56,18 @@
   margin: 0 auto;
   width: 100%;
 }
-
+.hero.home > div {
+  padding-top: 80px;
+}
+.hero.home > div:first-child {
+  padding-top: 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+background-color: #003CA5;
+    clip-path: polygon(0% 0%, 100% 200%, 100% 0%);
+}
 /* the image cell renders as an empty <p> when the image 404s — hide it */
 .hero > div:has(> div > p:only-child:empty),
 .hero .button-container:empty {
@@ -61,7 +81,10 @@
   color: var(--color-white);
   font-weight: var(--font-weight-bold);
 }
-
+.hero.home h1 {
+  text-transform: uppercase;
+  font-family: PolarisCondensed;
+}
 .hero p {
   max-width: 40rem;
   color: var(--color-white);
@@ -81,7 +104,15 @@
   color: var(--color-action);
   border: 2px solid var(--color-white);
 }
-
+.hero.home a.button:any-link {
+  background: #C6ECFD;
+    border: 1px solid transparent;
+    color: #003CA5;
+    border-radius: 6px;
+    font-size: 1rem;
+    padding: 18px;
+    min-height: unset;
+}
 .hero a.button:hover,
 .hero a.button:focus {
   background-color: transparent;
@@ -95,6 +126,14 @@
   color: var(--text-color);
   min-height: unset;
   padding: 0;
+}
+.section.light .hero > div:first-child > div {
+  display: flex;
+}
+.section.light .hero picture {
+  padding-right: 60px;
+  margin: 0;
+  position: relative;
 }
 
 .section.light .hero picture::after {
