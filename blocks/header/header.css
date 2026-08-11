@@ -48,6 +48,7 @@ header .nav-row-global {
 
 /* "Menu" box — blue tile, full height, flush to the far left edge */
 header .nav-hamburger {
+  position: absolute;
   order: -1;
   align-self: stretch;
   display: flex;
@@ -67,7 +68,7 @@ header .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: var(--color-blue-dark);
+  background-color: #0275BD;
   color: var(--color-white);
   cursor: pointer;
 }
@@ -96,8 +97,9 @@ header .nav-hamburger-icon::after { top: 8px; }
 
 header .nav-hamburger-label {
   font-size: 13px;
-  font-weight: var(--font-weight-semibold);
+  /* font-weight: var(--font-weight-semibold); */
   line-height: 1;
+  padding-top: 12px;
 }
 
 /* brand wordmark */
@@ -114,7 +116,7 @@ header .nav-brand a:any-link {
 }
 
 header .nav-brand img {
-  width: 220px;
+  width: 300px;
   height: auto;
 }
 
@@ -225,9 +227,9 @@ header .nav-sections ul {
 }
 
 header .nav-sections ul a:any-link {
-  color: var(--color-action);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--body-font-size-s);
+  color: #34383C;
+  font-weight: normal;
+  font-size: 18px;
   white-space: nowrap;
 }
 

@@ -237,6 +237,9 @@ export default async function decorate(block) {
     }
   }
 
+  if (navBrand) {
+    
+  }
   // hamburger ("Menu" box) for mobile — lives in the global row, far left.
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
