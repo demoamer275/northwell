@@ -1,20 +1,245 @@
+/* Northwell footer — dark charcoal, 5-column top row (contact, Quick links,
+   Connect, About, Employees) over a bottom bar (social icons + policy links on
+   the left, copyright on the right). Structure built in footer.js:
+     .footer-top    → .footer-contact  .footer-links(3 × .footer-col)  .footer-employees
+     .footer-bottom → .footer-social   .footer-legal */
+
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #2b2b2b;
+  color: var(--color-white);
+  font-size: var(--body-font-size-s);
 }
 
-footer .footer > div {
+footer .footer {
+  max-width: 1280px;
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 56px 32px 32px;
+}
+
+footer .footer a:any-link {
+  color: var(--color-white);
+  font-weight: var(--font-weight-light);
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  color: var(--color-link-alt);
+  text-decoration: underline;
 }
 
 footer .footer p {
+  margin: 0 0 var(--spacing-sm);
+  line-height: 1.5;
+}
+
+/* uppercase, muted column headings */
+footer .footer h3 {
+  margin: 0 0 var(--spacing-lg);
+  color: rgb(255 255 255 / 70%);
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+footer .footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer .footer ul li {
+  color: var(--color-white);
+  padding: 0 0 18px;
+}
+
+footer .footer ul li::marker {
+  content: none;
+}
+
+/* ============================================================
+   Top row — 5 columns
+   ============================================================ */
+footer .footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+  padding-bottom: var(--spacing-xxl);
+}
+
+/* Contact column */
+footer .footer-contact p:first-child a {
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-light);
+}
+
+footer .footer-contact p {
+  color: rgb(255 255 255 / 85%);
+}
+
+/* italic "For a Northwell ambulance" note */
+footer .footer-contact p:last-child {
+  margin-top: var(--spacing-lg);
+  font-style: italic;
+  font-size: var(--heading-font-size-xs);
+  color: var(--color-white);
+}
+
+/* Link columns group: on mobile the 3 columns wrap in a 2-col grid; on desktop
+   the group dissolves (display:contents) so its columns join the parent grid. */
+footer .footer-links .default-content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+}
+
+/* Employees column */
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-employees p {
+  color: rgb(255 255 255 / 85%);
+  max-width: 22rem;
+}
+
+footer .footer-employees a.button:any-link {
+  display: inline-block;
+  margin-top: var(--spacing-lg);
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--color-action);
+  color: var(--color-white);
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+footer .footer-employees a.button:hover {
+  background-color: var(--color-action-hover);
+  text-decoration: none;
+}
+
+/* ============================================================
+   Bottom bar — social icons + policy links (left), copyright (right)
+   ============================================================ */
+footer .footer-bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-xl);
+}
+
+/* social icons */
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-social p {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-social a:any-link {
+  display: inline-flex;
+  color: var(--color-white);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-social a:hover {
+  color: var(--color-link-alt);
+}
+
+footer .footer-social .icon {
+  width: 20px;
+  height: 20px;
+}
+
+footer .footer-social .icon img,
+footer .footer-social .icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* legal: pipe-separated policy links, then the copyright line */
+footer .footer-legal {
+  font-size: var(--body-font-size-xs);
+  color: rgb(255 255 255 / 70%);
+}
+
+footer .footer-legal p:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--spacing-md);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-legal p:first-child a {
+  position: relative;
+  color: rgb(255 255 255 / 85%);
+  font-size: var(--body-font-size-xs);
+}
+
+/* vertical divider between policy links */
+footer .footer-legal p:first-child a:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: calc(-1 * var(--spacing-md) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 12px;
+  background: rgb(255 255 255 / 30%);
+}
+
+footer .footer-legal p:last-child {
+  margin-top: var(--spacing-md);
+  color: rgb(255 255 255 / 60%);
+  line-height: 1.6;
+}
+
+@media (width >= 768px) {
+  footer .footer-top {
+    /* contact wider, then Quick links / Connect / About / Employees */
+    grid-template-columns: 1.3fr 1fr 1.1fr 1.1fr 1.4fr;
+    gap: var(--spacing-xl);
+  }
+
+  /* dissolve the links group AND its default-content-wrapper so the 3 columns
+     sit directly in the parent 5-col grid */
+  footer .footer-links,
+  footer .footer-links .default-content-wrapper {
+    display: contents;
+  }
+
+  /* bottom bar: social icons + policy links on the left, copyright hard-right.
+     .footer-legal dissolves so its two paragraphs sit directly in the flex row. */
+  footer .footer-bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  footer .footer-social {
+    flex: 0 0 auto;
+  }
+
+  footer .footer-legal {
+    display: contents;
+  }
+
+  /* policy links stay next to the social icons */
+  footer .footer-legal p:first-child {
+    margin: 0;
+    flex: 0 1 auto;
+  }
+
+  /* copyright pushed to the far right */
+  footer .footer-legal p:last-child {
+    margin: 0;
+    margin-left: auto;
+    text-align: right;
+    max-width: 24rem;
+    flex: 0 0 auto;
   }
 }

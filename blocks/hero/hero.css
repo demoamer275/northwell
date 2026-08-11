@@ -1,3 +1,7 @@
+/* Northwell hero — image background with brand-color fallback, content overlaid
+   in the branded container width. Heroes appear both on white and on light-gray
+   ("light" section) backgrounds. */
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,33 +9,127 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
+  display: flex;
+  align-items: center;
+  padding: 48px 24px;
+  min-height: 340px;
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+  /* fallback brand gradient shows when the background image is absent */
+  background: linear-gradient(120deg, var(--color-blue-dark) 0%, var(--color-blue) 100%);
+  color: var(--color-white);
+  overflow: hidden;
 }
 
 .hero picture {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
 }
 
-.hero img {
+.hero picture img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-@media (width >= 900px) {
+/* darken image so overlaid text stays legible (only when an image exists) */
+.hero picture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(0 60 165 / 78%) 0%, rgb(0 60 165 / 35%) 100%);
+}
+
+.hero > div {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* the image cell renders as an empty <p> when the image 404s — hide it */
+.hero > div:has(> div > p:only-child:empty),
+.hero .button-container:empty {
+  display: none;
+}
+
+.hero h1,
+.hero h2 {
+  margin: 0 0 var(--spacing-md);
+  max-width: 42rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+}
+
+.hero p {
+  max-width: 40rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-light);
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero .button-container {
+  margin-top: var(--spacing-lg);
+}
+
+/* CTA on the hero uses the inverse (white) button so it reads on the blue */
+.hero a.button:any-link {
+  background-color: var(--color-white);
+  color: var(--color-action);
+  border: 2px solid var(--color-white);
+}
+
+.hero a.button:hover,
+.hero a.button:focus {
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+/* ---- Hero inside a "light" section (Islanders, "Our team is here for you") ----
+   These sit on a light-gray background with no image, so use dark brand text. */
+.section.light .hero {
+  background: transparent;
+  color: var(--text-color);
+  min-height: unset;
+  padding: 0;
+}
+
+.section.light .hero picture::after {
+  display: none;
+}
+
+.section.light .hero h1,
+.section.light .hero h2 {
+  color: var(--color-blue-dark);
+}
+
+.section.light .hero p {
+  color: var(--text-color);
+}
+
+.section.light .hero a.button:any-link {
+  background-color: var(--color-action);
+  color: var(--color-white);
+  border-color: var(--color-action);
+}
+
+.section.light .hero a.button:hover,
+.section.light .hero a.button:focus {
+  background-color: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+  color: var(--color-white);
+}
+
+@media (width >= 768px) {
   .hero {
-    padding: 40px 32px;
+    padding: 64px 32px;
+    min-height: 420px;
+  }
+
+  .hero h1 {
+    font-size: var(--heading-font-size-xxl);
   }
 }

@@ -1,6 +1,11 @@
+/* Northwell columns — "Expert care for excellent results": left column is a
+   two-up specialty link list under a heading; right column is the video card
+   (thumbnail + linked heading + copy). */
+
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-xl);
 }
 
 .columns img {
@@ -19,15 +24,78 @@
   display: block;
 }
 
+/* left column heading + intro */
+.columns h2 {
+  margin-top: 0;
+  color: var(--color-blue-dark);
+}
+
+/* specialty link list → two columns of brand links with square bullets */
+.columns ul {
+  list-style: none;
+  margin: var(--spacing-md) 0 0;
+  padding: 0;
+  columns: 2;
+  column-gap: var(--spacing-xl);
+}
+
+.columns ul li {
+  break-inside: avoid;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.columns ul li a {
+  color: var(--color-blue-dark);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--heading-font-size-xs);
+}
+
+.columns ul li a:hover {
+  color: var(--link-color);
+}
+
+/* right column: the video card */
+.columns > div > div:last-child h3 {
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+.columns > div > div:last-child h3 a {
+  position: relative;
+  color: var(--color-blue-dark);
+  font-weight: var(--font-weight-normal);
+}
+
+.columns > div > div:last-child h3 a::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 10px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid var(--color-purple);
+  vertical-align: middle;
+}
+
+.columns > div > div:last-child h3 a:hover {
+  color: var(--link-color);
+}
+
 @media (width >= 900px) {
   .columns > div {
-    align-items: center;
+    align-items: start;
     flex-direction: unset;
-    gap: 24px;
+    gap: var(--spacing-xxl);
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+
+  /* give the specialty list column a bit more room than the video card */
+  .columns > div > div:first-child {
+    flex: 1.4;
   }
 }

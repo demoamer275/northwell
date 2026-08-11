@@ -1,0 +1,55 @@
+/*
+ * Northwell Health — brand design tokens
+ *
+ * Extracted from the site's "nwhlit" design system (index.css :root) and its
+ * component styles (style1.css / style2.css). These are the source-of-truth
+ * values for colors, typography, spacing and layout used across the site.
+ */
+
+:root {
+  /* ---- Brand color palette ---- */
+  --color-blue: #009adf;          /* primary brand blue (nav, accents) */
+  --color-blue-dark: #003ca5;     /* dark blue (= "purple-dark" in source) */
+  --color-action: #0275bd;        /* links + primary buttons */
+  --color-action-hover: #003ca5;
+  --color-purple: #9f28b5;
+  --color-purple-light: #bd83ca;
+  --color-green: #3dad2c;
+  --color-green-dark: #00823d;
+  --color-orange: #ff681e;
+  --color-gold: #ffba00;
+  --color-red: #e33d2e;
+  --color-teal: #6dc3df;
+  --color-link-alt: #57cbff;      /* links on dark backgrounds */
+
+  /* ---- Neutrals ---- */
+  --color-ink: #34383c;           /* body text */
+  --color-gray: #53565a;
+  --color-gray-light: #717376;
+  --color-border: #eaeaea;
+  --color-border-strong: #ccc;
+  --color-surface: #f7f7f7;       /* light section background */
+  --color-white: #fff;
+
+  /* ---- Font families ---- */
+  --font-fallback: "TheSans-fallback", -apple-system, blinkmacsystemfont, "Segoe UI", helvetica, arial, sans-serif;
+  --brand-font: "TheSans", var(--font-fallback);
+  --brand-font-serif: "Leitura", georgia, "Times New Roman", serif;
+  --brand-font-condensed: "PolarisCondensed", "Arial Narrow", sans-serif;
+
+  /* ---- Font weights ---- */
+  --font-weight-light: 300;
+  --font-weight-normal: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---- Spacing scale ---- */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* ---- Layout ---- */
+  --content-width: 1170px;
+}

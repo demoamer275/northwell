@@ -1,4 +1,4 @@
-import { fetchPlaceholders, getMetadata } from '../../scripts/aem.js';
+import { fetchPlaceholders, getMetadata, decorateIcons } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -182,22 +182,34 @@ export default async function decorate(block) {
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
-  });
+  // The fragment yields 6 logical groups in order:
+  // 0 brand · 1 utility · 2 title · 3 phone · 4 sections · 5 give-now
+  // Tag each, then compose them into the 3-row Northwell layout.
+  const groups = [...fragment.children];
+  const groupClasses = ['nav-brand', 'nav-utility', 'nav-title', 'nav-phone', 'nav-sections', 'nav-givenow'];
+  groups.forEach((g, i) => { if (groupClasses[i]) g.classList.add(groupClasses[i]); });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
+  const [navBrand, navUtility, navTitle, navPhone, navSections, navGiveNow] = groups;
 
-  const navSections = nav.querySelector('.nav-sections');
+  const makeRow = (name, ...children) => {
+    const row = document.createElement('div');
+    row.className = `nav-row nav-row-${name}`;
+    children.forEach((c) => c && row.append(c));
+    return row;
+  };
+
+  const rowGlobal = makeRow('global', navBrand, navUtility);
+  const rowTitle = makeRow('title', navTitle, navPhone);
+  const rowMain = makeRow('main', navSections, navGiveNow);
+  nav.append(rowGlobal, rowTitle, rowMain);
+
+  // EDS auto-decorates single-link paragraphs as buttons. The nav styles every
+  // link itself, so strip that button treatment across all rows.
+  nav.querySelectorAll('a.button').forEach((a) => { a.className = ''; });
+  nav.querySelectorAll('.button-container').forEach((p) => p.classList.remove('button-container'));
+
+  // Service-line nav dropdowns (kept for any future sub-menus).
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
@@ -211,22 +223,29 @@ export default async function decorate(block) {
     });
   }
 
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
+  // Convert the ":search:" token in the utility group into a real search icon.
+  if (navUtility) {
+    const searchToken = [...navUtility.querySelectorAll('a')].find((a) => a.textContent.trim() === ':search:');
+    if (searchToken) {
+      searchToken.textContent = '';
+      searchToken.setAttribute('aria-label', 'Search');
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'icon icon-search';
+      searchToken.append(iconSpan);
+      searchToken.closest('p')?.classList.add('nav-utility-search');
+      decorateIcons(navUtility);
     }
   }
 
-  // hamburger for mobile
+  // hamburger ("Menu" box) for mobile — lives in the global row, far left.
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
+      <span class="nav-hamburger-label">Menu</span>
     </button>`;
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-  nav.prepend(hamburger);
+  rowGlobal.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
