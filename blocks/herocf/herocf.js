@@ -3,19 +3,22 @@
  *
  * Renders the same look as the LIGHT variation of the standard hero block, but
  * instead of authoring the image / heading / body inline, the author enters the
- * URL of an AEM Content Fragment (on the publish server). The block fetches the
- * Content Fragment JSON and pulls three elements from it:
+ * path of an AEM Content Fragment. That path is appended to the GraphQL
+ * persisted query below, which retrieves the fragment's elements from the
+ * publish server. The block pulls three elements from the response:
  *   - "image" -> image reference (rendered as the hero picture)
  *   - "title" -> heading (rendered as an <h2>)
  *   - "body"  -> body copy (rendered as a <p>)
  *
- * Authoring: place a single URL (as a link or plain text) in the block, e.g.
+ * Authoring: place the Content Fragment path (as a link or plain text) in the
+ * first row of the block, e.g.
  *   | herocf |
- *   | https://publish-p123.adobeaemcloud.com/content/dam/site/heroes/my-hero |
- *
- * The block appends `.json` when the URL has no `.json` suffix, so authors can
- * paste the plain Content Fragment path.
+ *   | /content/dam/wehealthcare/heroes/my-hero |
  */
+
+// GraphQL persisted query on the publish server. The Content Fragment path
+// authored in the block is URL-encoded and appended to this endpoint.
+const GRAPHQL_ENDPOINT = 'https://publish-p182083-e1919654.adobeaemcloud.com/graphql/execute.json/wehealthcare/getHeroByPath;path=';
 
 /**
  * Normalize an AEM Content Fragment JSON payload into a flat map of
@@ -69,7 +72,11 @@ function extractElements(json) {
 function resolveImageUrl(value, baseUrl) {
   let path = value;
   if (Array.isArray(path)) [path] = path;
-  if (path && typeof path === 'object') path = path.value || path.path || path._path || path.src || '';
+  // GraphQL image references expose absolute publish/dynamic URLs directly.
+  if (path && typeof path === 'object') {
+    path = path._publishUrl || path._dynamicUrl || path._path
+      || path.value || path.path || path.src || '';
+  }
   if (typeof path !== 'string' || !path) return '';
   try {
     return new URL(path, baseUrl).href;
@@ -80,22 +87,22 @@ function resolveImageUrl(value, baseUrl) {
 
 export default async function decorate(block) {
   const link = block.querySelector('a');
-  const url = (link ? link.getAttribute('href') : block.textContent).trim();
+  const cfPath = (link ? link.getAttribute('href') : block.textContent).trim();
   block.textContent = '';
 
-  if (!url) return;
+  if (!cfPath) return;
 
-  // allow authors to paste the plain CF path; ask AEM for the JSON export
-  const jsonUrl = /\.json(\?|$)/.test(url) ? url : `${url.replace(/\/$/, '')}.json`;
+  // Append the authored Content Fragment path to the GraphQL persisted query.
+  const queryUrl = `${GRAPHQL_ENDPOINT}${cfPath}`;
 
   let elements;
   try {
-    const resp = await fetch(jsonUrl);
+    const resp = await fetch(queryUrl);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     elements = extractElements(await resp.json());
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('herocf: could not load Content Fragment', jsonUrl, e);
+    console.error('herocf: could not load Content Fragment', queryUrl, e);
     return;
   }
 
@@ -132,7 +139,7 @@ export default async function decorate(block) {
   }
 
   // Image column.
-  const imageUrl = imageEl ? resolveImageUrl(imageEl.value, jsonUrl) : '';
+  const imageUrl = imageEl ? resolveImageUrl(imageEl.value, queryUrl) : '';
   const row = document.createElement('div');
   row.className = 'herocf-row';
 
