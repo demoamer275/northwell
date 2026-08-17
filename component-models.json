@@ -187,6 +187,22 @@
     ]
   },
   {
+    "id": "herocf",
+    "fields": [
+      {
+        "component": "text",
+        "name": "urlText",
+        "label": "Content Fragment URL Text"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Content Fragment URL (publish server)",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {

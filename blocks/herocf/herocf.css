@@ -1,0 +1,86 @@
+/* Northwell hero (Content Fragment) — "herocf"
+   Self-contained port of the LIGHT hero variation: transparent background,
+   dark-blue heading, image beside dark body text. Image + heading + body are
+   pulled from an AEM Content Fragment (see herocf.js). */
+
+.herocf-container .herocf-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.herocf {
+  position: relative;
+  color: var(--text-color);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  width: 100%;
+  padding: 48px 24px;
+}
+
+.herocf .herocf-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+}
+
+.herocf picture {
+  display: block;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.herocf picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.herocf .herocf-content {
+  width: 100%;
+}
+
+.herocf h2 {
+  margin: 0 0 var(--spacing-md);
+  max-width: 42rem;
+  color: var(--color-blue-dark);
+  font-weight: var(--font-weight-bold);
+}
+
+.herocf p {
+  max-width: 40rem;
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-color);
+  font-weight: var(--font-weight-light);
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+}
+
+.herocf p:last-child {
+  margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+  .herocf {
+    padding: 64px 32px;
+  }
+
+  .herocf .herocf-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .herocf picture {
+    width: 45%;
+  }
+
+  .herocf .herocf-content {
+    flex: 1;
+  }
+
+  .herocf h2 {
+    font-size: var(--heading-font-size-xxl);
+  }
+}
