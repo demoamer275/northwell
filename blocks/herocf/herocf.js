@@ -18,7 +18,7 @@
 
 // GraphQL persisted query on the publish server. The Content Fragment path
 // authored in the block is URL-encoded and appended to this endpoint.
-const GRAPHQL_ENDPOINT = 'https://publish-p182083-e1919654.adobeaemcloud.com/graphql/execute.json/wehealthcare/getHeroByPath;path=';
+const GRAPHQL_ENDPOINT = 'https://publish-p182083-e1919654.adobeaemcloud.com/graphql/execute.json/wehealthcare/herocf;path=';
 
 /**
  * Normalize an AEM Content Fragment JSON payload into a flat map of
