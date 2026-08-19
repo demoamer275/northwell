@@ -95,6 +95,7 @@
   background: rgb(0 60 165 / 100%);
   color: var(--color-white);
   overflow: hidden;
+  max-width: unset;
 }
 
 .herocf.pagetop > div {
