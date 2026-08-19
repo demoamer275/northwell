@@ -84,3 +84,79 @@
     font-size: var(--heading-font-size-xxl);
   }
 }
+
+/* ---- "pagetop" variation ----
+   Styled and rendered like the "home" variation of the hero block: a diagonal
+   blue image panel anchored top-right, with the heading/body offset below it. */
+.herocf.pagetop {
+  display: block;
+  min-height: 340px;
+  padding: 48px 24px;
+  background: rgb(0 60 165 / 100%);
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.herocf.pagetop > div {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 80px;
+}
+
+.herocf.pagetop > div:first-child {
+  padding-top: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 50%;
+  max-width: unset;
+  margin: 0;
+  background-color: #003ca5;
+  clip-path: polygon(0% 0%, 100% 200%, 100% 0%);
+}
+
+.herocf.pagetop picture {
+  position: relative;
+  width: auto;
+}
+
+.herocf.pagetop picture img {
+  height: auto;
+}
+
+.herocf.pagetop h2 {
+  max-width: 42rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  font-family: PolarisCondensed;
+}
+
+.herocf.pagetop p {
+  color: var(--color-white);
+}
+
+.herocf.pagetop a.button:any-link {
+  background: #c6ecfd;
+  border: 1px solid transparent;
+  color: #003ca5;
+  border-radius: 6px;
+  font-size: 1rem;
+  padding: 18px;
+  min-height: unset;
+}
+
+@media (width >= 768px) {
+  .herocf.pagetop {
+    padding: 64px 32px;
+    min-height: 420px;
+  }
+
+  .herocf.pagetop h2 {
+    font-size: var(--heading-font-size-xxl);
+  }
+}

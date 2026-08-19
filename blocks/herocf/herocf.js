@@ -14,6 +14,11 @@
  * first row of the block, e.g.
  *   | herocf |
  *   | /content/dam/wehealthcare/heroes/my-hero |
+ *
+ * Variation: adding a "pagetop" variant (block name "Herocf, pagetop") renders
+ * and styles the block the same as the "home" variation of the hero block —
+ * a diagonal blue image panel anchored top-right, with the heading/body
+ * offset below it.
  */
 
 // GraphQL persisted query on the publish server. The Content Fragment path
@@ -140,19 +145,29 @@ export default async function decorate(block) {
 
   // Image column.
   const imageUrl = imageEl ? resolveImageUrl(imageEl.value, queryUrl) : '';
-  const row = document.createElement('div');
-  row.className = 'herocf-row';
-
+  let picture;
   if (imageUrl) {
-    const picture = document.createElement('picture');
+    picture = document.createElement('picture');
     const img = document.createElement('img');
     img.src = imageUrl;
     img.alt = titleEl && titleEl.value ? String(titleEl.value) : '';
     img.loading = 'eager';
     picture.append(img);
-    row.append(picture);
   }
 
+  if (block.classList.contains('pagetop')) {
+    // Mirrors the hero block's "home" variation: the image and content sit in
+    // two top-level rows (diagonal image panel + offset content), rather than
+    // the side-by-side row used by the default herocf layout.
+    const imageRow = document.createElement('div');
+    if (picture) imageRow.append(picture);
+    block.append(imageRow, content);
+    return;
+  }
+
+  const row = document.createElement('div');
+  row.className = 'herocf-row';
+  if (picture) row.append(picture);
   row.append(content);
   block.append(row);
 }
